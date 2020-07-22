@@ -3,10 +3,18 @@ package com.github.chhsiaoninety.nitmproxy;
 public class Address {
     private String host;
     private int port;
+    private String fakeHost;
 
     public Address(String host, int port) {
         this.host = host;
         this.port = port;
+        this.fakeHost = null;
+    }
+
+    public Address(String host, int port, String fakeHost) {
+        this.host = host;
+        this.port = port;
+        this.fakeHost = fakeHost;
     }
 
     public String getHost() {
@@ -15,6 +23,10 @@ public class Address {
 
     public int getPort() {
         return port;
+    }
+
+    public String getFakeHost() {
+        return fakeHost;
     }
 
     @Override

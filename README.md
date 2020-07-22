@@ -44,6 +44,14 @@ The most important parameter is:
 
 * redirectTargetHost - The redirect target host. Default: "127.0.0.1"
 
-* redirectTargetPort - The redirect target post. Default: 4567
+* redirectTargetHttpPort - The redirect target http port. Default: 3456
+
+* redirectTargetHttpsPort - The redirect target https port. Default: 3457
+
+* insecure - Disable remote certificate checking. Default: false (This is insecure, should implement a custom keystore loader in the future)
 
 For generating the root cert and key, check [here](https://jaanus.com/ios-13-certificates/)
+
+## Example
+
+[Check here](https://github.com/samnyan/DMTQ-Localserver/blob/master/gameserver/src/main/java/moe.msm.dmtqserver/)

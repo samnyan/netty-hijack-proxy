@@ -166,7 +166,7 @@ public class Http1FrontendHandler extends SimpleChannelInboundHandler<FullHttpRe
             if(matchRedirect(host)) {
                 scheme = "http";
                 host = master.config().getRedirectTargetHost();
-                port = master.config().getRedirectTargetPort();
+                port = master.config().getRedirectTargetHttpPort();
             }
             String path = matcher.group(5);
             return new FullPath(scheme, host, port, path);
@@ -180,11 +180,13 @@ public class Http1FrontendHandler extends SimpleChannelInboundHandler<FullHttpRe
         if (matcher.find()) {
             String host = matcher.group(1);
             int port = Integer.parseInt(matcher.group(2));
+            String fakeHost = null;
             if(matchRedirect(host)) {
+                fakeHost = host;
                 host = master.config().getRedirectTargetHost();
-                port = master.config().getRedirectTargetPort();
+                port = master.config().getRedirectTargetHttpsPort();
             }
-            return new Address(host, port);
+            return new Address(host, port, fakeHost);
         } else {
             throw new IllegalStateException("Illegal tunnel addr: " + addr);
         }

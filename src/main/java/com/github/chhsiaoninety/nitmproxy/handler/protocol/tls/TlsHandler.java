@@ -45,7 +45,7 @@ public class TlsHandler extends ChannelOutboundHandlerAdapter {
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         LOGGER.info("{} : handlerAdded", connectionInfo.toString(client));
 
-        if (master.config().getHttpsPorts().contains(connectionInfo.getServerAddr().getPort())) {
+        if (master.config().getHttpsPorts().contains(connectionInfo.getServerAddr().getPort()) || master.config().getRedirectTargetHttpsPort() == connectionInfo.getServerAddr().getPort()) {
             SslHandler sslHandler = sslCtx().newHandler(ctx.alloc());
             ctx.pipeline()
                .addBefore(ctx.name(), null, sslHandler)
@@ -57,7 +57,8 @@ public class TlsHandler extends ChannelOutboundHandlerAdapter {
 
     private SslContext sslCtx() throws SSLException {
         if (client) {
-            return TlsUtil.ctxForServer(master.config(), connectionInfo.getServerAddr().getHost());
+            return TlsUtil.ctxForServer(master.config(),
+                    connectionInfo.getServerAddr().getFakeHost() == null ? connectionInfo.getServerAddr().getHost() : connectionInfo.getServerAddr().getFakeHost());
         } else {
             return TlsUtil.ctxForClient(master.config());
         }

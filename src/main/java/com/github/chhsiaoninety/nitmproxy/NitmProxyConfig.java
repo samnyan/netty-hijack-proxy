@@ -27,7 +27,8 @@ public class NitmProxyConfig {
     // Redirect
     private List<String> redirectDomains;
     private String redirectTargetHost;
-    private int redirectTargetPort;
+    private int redirectTargetHttpPort;
+    private int redirectTargetHttpsPort;
 
 
     // Default values
@@ -49,7 +50,8 @@ public class NitmProxyConfig {
 
         redirectDomains = Collections.emptyList();
         redirectTargetHost = "127.0.0.1";
-        redirectTargetPort = 4567;
+        redirectTargetHttpPort = 3456;
+        redirectTargetHttpsPort = 3457;
     }
 
     public ProxyMode getProxyMode() {
@@ -148,12 +150,20 @@ public class NitmProxyConfig {
         this.redirectTargetHost = redirectTargetHost;
     }
 
-    public int getRedirectTargetPort() {
-        return redirectTargetPort;
+    public int getRedirectTargetHttpPort() {
+        return redirectTargetHttpPort;
     }
 
-    public void setRedirectTargetPort(int redirectTargetPort) {
-        this.redirectTargetPort = redirectTargetPort;
+    public void setRedirectTargetHttpPort(int redirectTargetHttpPort) {
+        this.redirectTargetHttpPort = redirectTargetHttpPort;
+    }
+
+    public int getRedirectTargetHttpsPort() {
+        return redirectTargetHttpsPort;
+    }
+
+    public void setRedirectTargetHttpsPort(int redirectTargetHttpsPort) {
+        this.redirectTargetHttpsPort = redirectTargetHttpsPort;
     }
 
     @Override
@@ -171,7 +181,8 @@ public class NitmProxyConfig {
                 String.format("serverHttp2=%s", serverHttp2),
                 String.format("redirectDomains=%s", redirectDomains),
                 String.format("redirectTargetHost=%s", redirectTargetHost),
-                String.format("redirectTargetPort=%s", redirectTargetPort)
+                String.format("redirectTargetHttpPort=%s", redirectTargetHttpPort),
+                String.format("redirectTargetHttpsPort=%s", redirectTargetHttpsPort)
         );
         return String.format("NitmProxyConfig%n%s",
                              StringUtil.join(System.lineSeparator(), properties));
