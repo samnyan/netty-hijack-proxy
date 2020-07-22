@@ -32,22 +32,21 @@ public class NettyHijackProxy {
     }
 
     public void start() throws Exception {
-        var config = new NitmProxyConfig();
+        NitmProxyConfig config = new NitmProxyConfig();
         config.setPort(this.port);
         config.setRedirectTargetPort(this.redirectPort);
         config.setRedirectDomains(this.redirectDomains);
 
-        var proxy = new NitmProxy(config);
+        NitmProxy proxy = new NitmProxy(config);
         proxy.start();
     }
 
     public static void main(String[] args) throws Exception {
         logger.info("Standalone mode running.");
-        var config = new NitmProxyConfig();
+        NitmProxyConfig config = new NitmProxyConfig();
         config.setPort(3456);
-        config.setRedirectDomains(List.of("test.com"));
 
-        var proxy = new NitmProxy(config);
+        NitmProxy proxy = new NitmProxy(config);
         proxy.start();
     }
 }

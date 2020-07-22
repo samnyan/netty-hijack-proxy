@@ -1,7 +1,11 @@
 plugins {
     id 'java'
     id 'application'
+    id 'maven'
 }
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 ext {
     javaMainClass = "moe.msm.NettyHijackProxy"
