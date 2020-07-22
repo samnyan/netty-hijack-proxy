@@ -25,6 +25,12 @@ public class NettyHijackProxy {
         this.redirectDomains = Collections.emptyList();
     }
 
+    public NettyHijackProxy(int port, int redirectPort, List<String> redirectDomains) {
+        this.port = port;
+        this.redirectPort = redirectPort;
+        this.redirectDomains = redirectDomains;
+    }
+
     public void start() throws Exception {
         var config = new NitmProxyConfig();
         config.setPort(this.port);

@@ -164,6 +164,7 @@ public class Http1FrontendHandler extends SimpleChannelInboundHandler<FullHttpRe
             String host = matcher.group(2);
             int port = resolvePort(scheme, matcher.group(4));
             if(matchRedirect(host)) {
+                scheme = "http";
                 host = master.config().getRedirectTargetHost();
                 port = master.config().getRedirectTargetPort();
             }
